@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Login - Portal VE</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS seguro -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
@@ -45,10 +47,10 @@
   </div>
 
   <script>
-    // Configura Supabase (REEMPLAZA CON TUS DATOS)
-    const supabaseUrl = 'TU_URL_SUPABASE';
-    const supabaseKey = 'TU_CLAVE_PUBLICA_SUPABASE';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    // Configura Supabase (REEMPLAZA CON TUS DATOS REALES)
+    const supabaseUrl = 'https://npmhykkanlykzjsdzelo.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wbWh5a2thbmx5a3pqc2R6ZWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0ODUzMDksImV4cCI6MjA2MjA2MTMwOX0.3XFZdpYCV9DK60pogX0eM8OxmJtmAGdiDuWOaMv2H-Y';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -57,23 +59,29 @@
       const contrasena = document.getElementById('contrasena').value;
       const errorMsg = document.getElementById('errorMsg');
       
-      // 1. Buscar usuario en Supabase (comparando usuario y contraseña en texto plano)
-      const { data, error } = await supabase
-        .from('Usuarios')
-        .select('*')
-        .eq('nombre_usuario', nombre_usuario)
-        .eq('contrasena_hash', contrasena) // Ahora usamos el campo como contraseña en plano
-        .single();
-      
-      if (data) {
+      try {
+        // 1. Buscar usuario en Supabase
+        const { data, error } = await supabase
+          .from('Usuarios')
+          .select('*')
+          .eq('nombre_usuario', nombre_usuario)
+          .eq('contrasena_hash', contrasena)
+          .single();
+        
+        if (error || !data) {
+          throw new Error('Credenciales inválidas');
+        }
+        
         // 2. Guardar sesión
         localStorage.setItem('id_usuario', data.id_usuario);
         localStorage.setItem('nombre_usuario', data.nombre_usuario);
         localStorage.setItem('ministerio', data.ministerio);
         
-        // Redirigir al panel
-        window.location.href = 'panel.html';
-      } else {
+        // 3. Redirigir (verifica que panel.html exista en la misma ubicación)
+        window.location.href = 'dashboard.html';
+        
+      } catch (error) {
+        console.error('Error en login:', error);
         errorMsg.classList.remove('hidden');
       }
     });
