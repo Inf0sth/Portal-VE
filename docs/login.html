@@ -5,7 +5,6 @@
   <title>Login - Portal VE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bcrypt.js/2.4.3/bcrypt.min.js"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
   <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -13,20 +12,20 @@
     
     <form id="loginForm" class="space-y-4">
       <div>
-        <label for="usuario" class="block text-sm font-medium text-gray-700">Usuario</label>
+        <label for="nombre_usuario" class="block text-sm font-medium text-gray-700">Usuario</label>
         <input 
           type="text" 
-          id="usuario" 
+          id="nombre_usuario" 
           required
           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           placeholder="Ej: joel">
       </div>
       
       <div>
-        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+        <label for="contrasena" class="block text-sm font-medium text-gray-700">Contraseña</label>
         <input 
           type="password" 
-          id="password" 
+          id="contrasena" 
           required
           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           placeholder="••••••••">
@@ -47,37 +46,33 @@
 
   <script>
     // Configura Supabase (REEMPLAZA CON TUS DATOS)
-    const supabaseUrl = 'https://npmhykkanlykzjsdzelo.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wbWh5a2thbmx5a3pqc2R6ZWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0ODUzMDksImV4cCI6MjA2MjA2MTMwOX0.3XFZdpYCV9DK60pogX0eM8OxmJtmAGdiDuWOaMv2H-Y';
+    const supabaseUrl = 'TU_URL_SUPABASE';
+    const supabaseKey = 'TU_CLAVE_PUBLICA_SUPABASE';
     const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      const usuario = document.getElementById('usuario').value;
-      const password = document.getElementById('password').value;
+      const nombre_usuario = document.getElementById('nombre_usuario').value;
+      const contrasena = document.getElementById('contrasena').value;
       const errorMsg = document.getElementById('errorMsg');
       
-      // 1. Buscar usuario en Supabase
+      // 1. Buscar usuario en Supabase (comparando usuario y contraseña en texto plano)
       const { data, error } = await supabase
         .from('Usuarios')
         .select('*')
-        .eq('usuario', usuario)
+        .eq('nombre_usuario', nombre_usuario)
+        .eq('contrasena_hash', contrasena) // Ahora usamos el campo como contraseña en plano
         .single();
       
-      if (error || !data) {
-        errorMsg.classList.remove('hidden');
-        return;
-      }
-      
-      // 2. Verificar contraseña con bcrypt
-      const match = await bcrypt.compare(password, data.contrasena_hash);
-      
-      if (match) {
-        // 3. Guardar sesión y redirigir
-        localStorage.setItem('usuario_id', data.id);
-        localStorage.setItem('usuario_nombre', data.usuario);
-        window.location.href = '/dashboard.html';
+      if (data) {
+        // 2. Guardar sesión
+        localStorage.setItem('id_usuario', data.id_usuario);
+        localStorage.setItem('nombre_usuario', data.nombre_usuario);
+        localStorage.setItem('ministerio', data.ministerio);
+        
+        // Redirigir al panel
+        window.location.href = 'panel.html';
       } else {
         errorMsg.classList.remove('hidden');
       }
