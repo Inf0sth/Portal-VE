@@ -21,20 +21,9 @@ formMiembro.addEventListener('submit', async (e) => {
   }
 });
 
-async function cargarMiembros() {
-  const { data, error } = await supabase.from('Miembro').select();
-  if (error) return;
-  listaMiembros.innerHTML = data.map(m => `
-    <tr class="border-b">
-      <td class="p-2">${m.nombre}</td>
-      <td class="p-2">${m.correo}</td>
-      <td class="p-2">${m.edad}</td>
-      <td class="p-2 space-x-2">
-        <button onclick="eliminarMiembro(${m.id})" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Eliminar</button>
-      </td>
-    </tr>
-  `).join('');
-}
+let { data: miembro, error } = await supabase
+  .from('miembro')
+  .select('*')
 
 async function eliminarMiembro(id) {
   await supabase.from('Miembro').delete().eq('id', id);
