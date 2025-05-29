@@ -61,7 +61,7 @@ document.getElementById('form-oracion')?.addEventListener('submit', async (e) =>
   e.preventDefault();
   const descripcion = e.target.descripcion.value;
 
-  const { error } = await supabaseClient.from('MotivoOracion').insert({
+  const { error } = await supabaseClient.from('motivooracion').insert({
     descripcion,
     fecha_registro: new Date().toISOString(),
     registrado_por: 1 // Usuario fijo por ahora
