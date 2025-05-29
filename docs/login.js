@@ -1,4 +1,4 @@
-const { createClient } = supabase;
+const createClient = supabase.createClient;
 
 const supabaseClient = createClient('https://npmhykkanlykzjsdzelo.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wbWh5a2thbmx5a3pqc2R6ZWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0ODUzMDksImV4cCI6MjA2MjA2MTMwOX0.3XFZdpYCV9DK60pogX0eM8OxmJtmAGdiDuWOaMv2H-Y');
 
@@ -21,11 +21,11 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     return;
   }
 
-  const match = await bcrypt.compare(contrasena, data.contrasena_hash);
+  const match = contrasena === data.contrasena_hash;
 
   if (match) {
     localStorage.setItem('nombre_usuario', usuario);
-    window.location.href = 'admin.html';
+    window.location.href = 'dashboard.html';
   } else {
     errorMsg.textContent = 'Contraseña incorrecta';
     errorMsg.classList.remove('hidden');
