@@ -10,9 +10,9 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
   const errorMsg = document.getElementById('error-msg');
 
   const { data, error } = await supabaseClient
-    .from('Usuarios')
+    .from('usuarios')
     .select('contrasena_hash')
-    .eq('usuario', usuario)
+    .eq('nombre_usuario', usuario)
     .single();
 
   if (error || !data) {
@@ -24,7 +24,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
   const match = await bcrypt.compare(contrasena, data.contrasena_hash);
 
   if (match) {
-    localStorage.setItem('usuario', usuario);
+    localStorage.setItem('nombre_usuario', usuario);
     window.location.href = 'admin.html';
   } else {
     errorMsg.textContent = 'Contraseña incorrecta';

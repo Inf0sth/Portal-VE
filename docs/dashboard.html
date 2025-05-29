@@ -17,7 +17,7 @@
   <!-- HEADER -->
   <header class="bg-white shadow p-4 flex justify-between items-center">
     <h1 class="text-2xl font-bold text-blue-600">Panel de Administración</h1>
-    <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Cerrar sesión</button>
+    <button onclick="cerrarSesion()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Cerrar sesión</button>
   </header>
 
   <div class="flex">
@@ -104,8 +104,25 @@
 
     </main>
   </div>
+
+  <!-- Dependencias -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Verificar sesión + logout -->
+  <script>
+
+    if (!localStorage.getItem('nombre_usuario')) {
+      window.location.href = 'login.html';
+    }
+
+    // Cerrar sesión
+    function cerrarSesion() {
+      localStorage.removeItem('nombre_usuario');
+      window.location.href = 'login.html';
+    }
+  </script>
+
+  <!-- Tu lógica personalizada -->
   <script src="js/miembros.js"></script>
 </body>
 </html>
-
