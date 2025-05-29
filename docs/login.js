@@ -1,6 +1,6 @@
 const { createClient } = supabase;
 
-const supabaseClient = createClient('hhttps://npmhykkanlykzjsdzelo.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wbWh5a2thbmx5a3pqc2R6ZWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0ODUzMDksImV4cCI6MjA2MjA2MTMwOX0.3XFZdpYCV9DK60pogX0eM8OxmJtmAGdiDuWOaMv2H-Y');
+const supabaseClient = createClient('https://npmhykkanlykzjsdzelo.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wbWh5a2thbmx5a3pqc2R6ZWxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0ODUzMDksImV4cCI6MjA2MjA2MTMwOX0.3XFZdpYCV9DK60pogX0eM8OxmJtmAGdiDuWOaMv2H-Y');
 
 document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
