@@ -7,6 +7,7 @@
 | **[Markdown](mi-app.md)** | Práctica 11 |
 | **[Markdown](modelado-app.md)** | Práctica 12 |
 | **[Web](https://inf0sth.github.io/Portal-VE/)** | Práctica 13 |
+| **[Conversación GPT](https://chatgpt.com/share/68373427-643c-8010-bf3d-d2563a70bb44)** | Práctica 13 |
 
 
 Portal VE, es un proyecto para presentar información de la iglesia dónde asisto
