@@ -20,7 +20,7 @@ document.getElementById('form-miembro')?.addEventListener('submit', async (e) =>
     ministerio: Number(form.ministerio.value),
   };
 
-  const { error } = await supabaseClient.from('Miembro').insert(nuevoMiembro);
+  const { error } = await supabaseClient.from('miembro').insert(nuevoMiembro);
 
   if (!error) {
     form.reset();
@@ -31,7 +31,7 @@ document.getElementById('form-miembro')?.addEventListener('submit', async (e) =>
 });
 
 async function cargarMiembros() {
-  const { data, error } = await supabaseClient.from('Miembro').select('*');
+  const { data, error } = await supabaseClient.from('miembro').select('*');
 
   const lista = document.getElementById('lista-miembros');
   if (!lista) return;
@@ -52,7 +52,7 @@ async function cargarMiembros() {
 }
 
 async function eliminarMiembro(id) {
-  const { error } = await supabaseClient.from('Miembro').delete().eq('id_miembro', id);
+  const { error } = await supabaseClient.from('miembro').delete().eq('id_miembro', id);
   if (!error) cargarMiembros();
 }
 
@@ -74,7 +74,7 @@ document.getElementById('form-oracion')?.addEventListener('submit', async (e) =>
 });
 
 async function cargarMotivos() {
-  const { data } = await supabaseClient.from('MotivoOracion').select('*');
+  const { data } = await supabaseClient.from('motivooracion').select('*');
   const lista = document.getElementById('lista-oracion');
   if (!lista) return;
   lista.innerHTML = '';
@@ -92,7 +92,7 @@ document.getElementById('form-pendiente')?.addEventListener('submit', async (e) 
   e.preventDefault();
   const descripcion = e.target.descripcion.value;
 
-  const { error } = await supabaseClient.from('Pendiente').insert({
+  const { error } = await supabaseClient.from('pendiente').insert({
     titulo: descripcion,
     descripcion,
     fecha_creacion: new Date().toISOString().slice(0, 10),
@@ -107,7 +107,7 @@ document.getElementById('form-pendiente')?.addEventListener('submit', async (e) 
 });
 
 async function cargarPendientes() {
-  const { data } = await supabaseClient.from('Pendiente').select('*');
+  const { data } = await supabaseClient.from('pendiente').select('*');
   const lista = document.getElementById('lista-pendientes');
   if (!lista) return;
   lista.innerHTML = '';
@@ -124,7 +124,7 @@ async function cargarPendientes() {
 }
 
 async function eliminarPendiente(id) {
-  const { error } = await supabaseClient.from('Pendiente').delete().eq('id_pendiente', id);
+  const { error } = await supabaseClient.from('pendiente').delete().eq('id_pendiente', id);
   if (!error) cargarPendientes();
 }
 
@@ -133,7 +133,7 @@ document.getElementById('form-responsable')?.addEventListener('submit', async (e
   e.preventDefault();
   const form = e.target;
 
-  const { error } = await supabaseClient.from('Evento').insert({
+  const { error } = await supabaseClient.from('evento').insert({
     nombre: form.evento.value,
     descripcion: '-',
     fecha_evento: new Date().toISOString().slice(0, 10),
@@ -147,7 +147,7 @@ document.getElementById('form-responsable')?.addEventListener('submit', async (e
 });
 
 async function cargarEventos() {
-  const { data } = await supabaseClient.from('Evento').select('*');
+  const { data } = await supabaseClient.from('evento').select('*');
   const lista = document.getElementById('lista-responsables');
   if (!lista) return;
   lista.innerHTML = '';
@@ -166,7 +166,7 @@ async function cargarEventos() {
 }
 
 async function eliminarEvento(id) {
-  const { error } = await supabaseClient.from('Evento').delete().eq('id_evento', id);
+  const { error } = await supabaseClient.from('evento').delete().eq('id_evento', id);
   if (!error) cargarEventos();
 }
 
