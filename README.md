@@ -11,3 +11,6 @@
 
 Portal VE, es un proyecto para presentar información de la iglesia dónde asisto
 Algunos aspectos importantes a tomar en cuenta, es que el objetivo del CRUD es que sea un servicio privado, por lo que los usuarios para acceder a esta parte del servicio se levantarían desde SUPABASE, para evitar tener accesos no autorizados a cualquier información sensible.
+
+Las credenciales son: 
+joel:Amigos1234*
