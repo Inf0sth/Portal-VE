@@ -110,19 +110,17 @@
 
   <!-- Verificar sesión + logout -->
   <script>
-
     if (!localStorage.getItem('nombre_usuario')) {
       window.location.href = 'login.html';
     }
 
-    // Cerrar sesión
     function cerrarSesion() {
       localStorage.removeItem('nombre_usuario');
       window.location.href = 'login.html';
     }
   </script>
 
-  <!-- Tu lógica personalizada -->
-  <script src="js/miembros.js"></script>
+  <!-- Lógica JS para Supabase -->
+  <script src="dashboard.js"></script>
 </body>
 </html>
